@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.example.blog_app.payloads.USerDto.java&apos; to &apos;UserDto.java&apos;&#x0D;&#x0A;- Original project: &apos;blog_app_backend&apos;&#x0D;&#x0A;- Original element: &apos;com.example.blog_app.payloads.USerDto.java&apos;&#x0D;&#x0A;- Renamed element: &apos;com.example.blog_app.payloads.UserDto.java&apos;" description="Rename compilation unit &apos;USerDto.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.blog_app.payloads{USerDto.java" name="UserDto.java" references="false" stamp="1751783666625" version="1.0"/>
+</session>

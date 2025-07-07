@@ -1,0 +1,40 @@
+package com.example.blog_app.serviceImpl;
+
+import java.util.List;
+
+import com.example.blog_app.payloads.UserDto;
+import com.example.blog_app.service.UserService;
+
+public class UserServiceImpl implements UserService {
+
+	@Override
+	public UserDto create(UserDto user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserDto updateUser(UserDto user, Integer userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserDto getUserById(Integer userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDto> getAllUSers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteUser(Integer userId) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

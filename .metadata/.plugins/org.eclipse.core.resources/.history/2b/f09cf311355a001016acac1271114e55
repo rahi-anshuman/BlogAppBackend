@@ -1,0 +1,68 @@
+package com.example.blog_app.serviceImpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.blog_app.model.User;
+import com.example.blog_app.payloads.UserDto;
+import com.example.blog_app.repository.UserRepository;
+import com.example.blog_app.service.UserService;
+
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserRepository userRepo;
+	@Override
+	public UserDto createUser(UserDto user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserDto updateUser(UserDto user, Integer userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserDto getUserById(Integer userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDto> getAllUSers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteUser(Integer userId) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	private User dtoToUser(UserDto userDto) {
+		User user = new User();
+		user.setUserName(userDto.getUsername());
+		user.setAbout(userDto.getAbout());
+		user.setEmail(userDto.getEmail());
+		user.setPassword(userDto.getPassword());
+		user.setPassword(userDto.getPassword());
+		user.setUserId(userDto.getId());
+		return user;
+	}
+	
+	private UserDto userToDTo(User user) {
+		UserDto userDto = new UserDto();
+		userDto.setUserName(user.getUserName());
+		userDto.setAbout(user.getAbout());
+		userDto.setEmail(user.getEmail());
+		userDto.setPassword(user.getPassword());
+		userDto.setPassword(user.getPassword());
+		userDto.setUserId(user.getUserId());
+		return userDto;
+	}
+
+}

@@ -1,0 +1,8 @@
+package com.example.blog_app.service;
+
+import com.example.blog_app.model.User;
+import com.example.blog_app.payloads.USerDto;
+
+public interface UserService {
+	USerDto create(User user);
+}

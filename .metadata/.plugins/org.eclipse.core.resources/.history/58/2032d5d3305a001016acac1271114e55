@@ -1,0 +1,13 @@
+package com.example.blog_app.model;
+
+import java.util.List;
+
+public class User {
+	Integer id;
+	String name;
+	String username;
+	String password;
+	String about;
+	List<Post> posts;
+
+}
