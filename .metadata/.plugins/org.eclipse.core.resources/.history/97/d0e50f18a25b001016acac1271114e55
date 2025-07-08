@@ -1,0 +1,85 @@
+package com.example.blog_app.serviceImpl;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.blog_app.exception.ResourceNotFoundException;
+import com.example.blog_app.model.User;
+import com.example.blog_app.payloads.UserDto;
+import com.example.blog_app.repository.UserRepository;
+import com.example.blog_app.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserRepository userRepo;
+	@Autowired
+	private ModelMapper modelMapper;
+	@Override
+	public UserDto createUser(UserDto userdto) {
+
+		User user = this.dtoToUser(userdto);
+		User savedUser = userRepo.save(user);
+		return userToDTo(savedUser);
+
+	}
+
+	@Override
+	public UserDto updateUser(UserDto userdto, Integer userId) {
+		User user = userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User"," id",userId.toString()));
+		user.setUserName(userdto.getUsername());
+		user.setEmail(userdto.getEmail());
+		user.setPassword(userdto.getPassword());
+		user.setAbout(userdto.getAbout());
+		User savedUser = userRepo.save(user);
+		return userToDTo(savedUser);
+	}
+
+	@Override
+	public UserDto getUserById(Integer userId) {
+		User user = userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("user", " id",userId.toString()));
+		return userToDTo(user);
+	}
+
+	@Override
+	public List<UserDto> getAllUSers() {
+		// TODO Auto-generated method stub
+		List<User> userList = userRepo.findAll();
+		List<UserDto> userDtoList = userList.stream().map((user)->userToDTo(user)).collect(Collectors.toList());
+		return userDtoList;
+	}
+
+	@Override
+	public void deleteUser(Integer userId) {
+		User user = userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("user", " id",userId.toString()));
+		userRepo.delete(user);
+	}
+	
+	private User dtoToUser(UserDto userDto) {
+		User user = new User();
+		user.setUserName(userDto.getUsername());
+		user.setAbout(userDto.getAbout());
+		user.setEmail(userDto.getEmail());
+		user.setPassword(userDto.getPassword());
+		user.setPassword(userDto.getPassword());
+//		user.setUserId(userDto.getId());
+		return user;
+	}
+	
+	private UserDto userToDTo(User user) {
+		UserDto userDto = new UserDto();
+		userDto.setUsername(user.getUserName());
+		userDto.setAbout(user.getAbout());
+		userDto.setEmail(user.getEmail());
+		userDto.setPassword(user.getPassword());
+		userDto.setPassword(user.getPassword());
+//		userDto.setId(user.getUserId());
+		return userDto;
+	}
+
+}

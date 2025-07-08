@@ -1,10 +1,23 @@
 package com.example.blog_app.payloads;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 public class UserDto {
 	private Integer id;
+	@NotEmpty
+	@Size(min = 4, message = "username must me minimum of 4 character")
 	private String username;
+	@Email(message = "email is not valid")
 	private String email;
+	@NotEmpty
+	@Size(min = 3, max = 10 , message = "password must be between 3 to 10 characters")
+//	@Pattern(regexp = )
 	private String password;
+	@NotNull
 	private String about;
 	public UserDto() {
 		super();
