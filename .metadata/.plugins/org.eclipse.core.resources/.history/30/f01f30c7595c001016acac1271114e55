@@ -1,0 +1,20 @@
+package com.example.blog_app.service;
+
+import java.util.List;
+
+import com.example.blog_app.payloads.PostDto;
+
+public interface PostService {
+	
+	//create
+	 PostDto createPost(PostDto PostDto); 
+	//update
+	 PostDto updatePost(PostDto categoeyDto, Integer PostId);
+	//delete
+	 void deletePost(Integer PostId);
+	//get
+	 PostDto getPost(Integer PostId);
+	//getAll
+	 List<PostDto> getAllPost();
+
+}

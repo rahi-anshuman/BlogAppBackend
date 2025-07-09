@@ -1,0 +1,101 @@
+package com.example.blog_app.serviceImpl;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.blog_app.exception.ResourceNotFoundException;
+import com.example.blog_app.model.Category;
+import com.example.blog_app.model.Post;
+import com.example.blog_app.model.User;
+import com.example.blog_app.payloads.PostDto;
+import com.example.blog_app.repository.CategoryRepository;
+import com.example.blog_app.repository.PostRepository;
+import com.example.blog_app.repository.UserRepository;
+import com.example.blog_app.service.PostService;
+
+@Service
+public class PostServiceImpl implements PostService {
+	@Autowired
+	private PostRepository postRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	@Autowired
+	private ModelMapper modelMapper;
+	@Override
+	public PostDto createPost(PostDto PostDto,Integer userId,Integer CategoryId) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User"," id",userId.toString()));
+		Category category = categoryRepository.findById(CategoryId).orElseThrow(()-> new ResourceNotFoundException("Category "," id",CategoryId.toString()));
+		Post post =this.modelMapper.map(PostDto, Post.class);
+		post.setPostImage(null);
+		post.setUser(user);
+		post.setCategory(category);
+		Post createdPost = this.postRepository.save(post);
+		return this.modelMapper.map(createdPost, PostDto.class);
+	}
+
+	@Override
+	public PostDto updatePost(PostDto postDto, Integer PostId) {
+		// TODO Auto-generated method stub
+		Post getPost = this.postRepository.findById(PostId).orElseThrow(()-> new ResourceNotFoundException("Post", "Post ID", PostId.toString()));
+		getPost.setPostTitle(postDto.getPostTitle());
+		getPost.setPostContnet(postDto.getPostContent());
+		Post savedPost = this.postRepository.save(getPost);
+		
+		return this.modelMapper.map(savedPost, PostDto.class);
+	}
+
+	@Override
+	public void deletePost(Integer PostId) {
+		Post getPost = this.postRepository.findById(PostId).orElseThrow(()-> new ResourceNotFoundException("Post", "Post ID", PostId.toString()));
+		this.postRepository.delete(getPost);
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public PostDto getPost(Integer PostId) {
+		// TODO Auto-generated method stub
+		Post getPost = this.postRepository.findById(PostId).orElseThrow(()-> new ResourceNotFoundException("Post", "Post ID", PostId.toString()));
+		
+		return this.modelMapper.map(getPost, PostDto.class);
+	}
+
+	@Override
+	public List<PostDto> getAllPost() {
+		// TODO Auto-generated method stub
+		List<Post> postList = this.postRepository.findAll();
+		List<PostDto> postDtoList = postList.stream().map(post-> this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		return postDtoList;
+	}
+
+	@Override
+	public List<PostDto> getAllPostByCategory(Integer categoryId) {
+		// TODO Auto-generated method stub
+		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("Category", "Id", categoryId.toString()));
+		List<Post> postList = this.postRepository.findByCategory(category);
+		List<PostDto> postDtoList = postList.stream().map(post-> this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		return postDtoList;
+	}
+
+	@Override
+	public List<PostDto> getAllPostByUser(Integer userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostDto> searchPost(String keywords) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
